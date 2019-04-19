@@ -3,11 +3,13 @@ DIR_UP = 1
 DIR_RIGHT = 2
 DIR_DOWN = 3
 DIR_LEFT = 4
+DIR_CENTER = 5
 
 DIR_OFFSET = {DIR_UP: (0, 1),
               DIR_RIGHT: (1, 0),
               DIR_DOWN: (0, -1),
-              DIR_LEFT: (-1, 0)}
+              DIR_LEFT: (-1, 0),
+              DIR_CENTER: (0,0)}
 
 class Pom:
     BLOCK_SIZE = 5
@@ -16,12 +18,11 @@ class Pom:
         self.world = world
         self.x = x
         self.y = y
-        self.direction = DIR_RIGHT
+        self.direction = DIR_CENTER
 
     def update(self,k):
         if self.x>self.world.width:
             self.x=0
-        self.x+=5
 
         self.x += DIR_OFFSET[self.direction][0]*self.BLOCK_SIZE
         self.y += DIR_OFFSET[self.direction][1]*self.BLOCK_SIZE
@@ -42,8 +43,9 @@ class World:
         elif arcade.key.DOWN == key:
             self.pom.direction = DIR_DOWN
 
+        elif arcade.key.LEFT == key:
+            self.pom.direction = DIR_LEFT
+
         elif arcade.key.RIGHT == key:
             self.pom.direction = DIR_RIGHT
 
-        elif arcade.key.LEFT == key:
-            self.pom.direction = DIR_LEFT

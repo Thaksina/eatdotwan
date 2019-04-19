@@ -1,8 +1,13 @@
 import arcade
+import random
 from models import World
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 500
+
+SPRITE_SCALING_PLAYER = 0.5
+SPRITE_SCALING_COIN = 0.2
+COIN_COUNT = 50
 
 
 class ModelSprite(arcade.Sprite):
@@ -11,11 +16,34 @@ class ModelSprite(arcade.Sprite):
 
         super().__init__(*args, **kwargs)
 
+        self.player_list = None
+        self.coin_list = None
+        self.player_sprite = None
+        self.score = 0
+
+    def setup(self):
+        for i in range(COIN_COUNT):
+
+            # Create the coin instance
+            # Coin image from kenney.nl
+            coin = arcade.Sprite("dot.png", SPRITE_SCALING_COIN)
+
+            # Position the coin
+            coin.center_x = random.randrange(SCREEN_WIDTH)
+            coin.center_y = random.randrange(SCREEN_HEIGHT)
+
+            # Add the coin to the lists
+            self.coin_list.append(coin)
+
+
+
     def sync_with_model(self):
         if self.model:
             self.set_position(self.model.x, self.model.y)
 
     def draw(self):
+        arcade.start_render()
+        self.coin_list.draw()
         self.sync_with_model()
         super().draw()
 
@@ -40,6 +68,7 @@ class EatdotWindow(arcade.Window):
         arcade.start_render()
         self.eatdotpom.draw()
 
+
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
 
@@ -51,8 +80,6 @@ def main():
 if __name__ == '__main__':
     main()
 
-
-#lfs
 
 
 
