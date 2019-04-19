@@ -59,14 +59,14 @@ class MyGame(arcade.Window):
         self.player_sprite.center_x = 50
         self.player_sprite.center_y = 50
         self.player_list.append(self.player_sprite)
-        self.background = arcade.load_texture("5.jpg")
+        self.background = arcade.load_texture("6.jpg")
 
         # Create the coins
         for i in range(COIN_COUNT):
 
             # Create the coin instance
             # Coin image from kenney.nl
-            coin = arcade.Sprite("dot.png", SPRITE_SCALING_COIN)
+            coin = arcade.Sprite("dotdot.png", SPRITE_SCALING_COIN)
 
             # Position the coin
             coin.center_x = random.randrange(SCREEN_WIDTH)
@@ -87,9 +87,9 @@ class MyGame(arcade.Window):
 
         # Put the text on the screen.
         output = f"Score: {self.score}"
-        arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
+        arcade.draw_text(output, 10, 20, arcade.color.BABY_PINK, 14)
         output2 = f"Life: {self.live}"
-        arcade.draw_text(output2, 10, 35, arcade.color.WHITE, 14)
+        arcade.draw_text(output2, 10, 35, arcade.color.BABY_PINK, 14)
 
     def on_mouse_motion(self, x, y, dx, dy):
         """ Handle Mouse Motion """
