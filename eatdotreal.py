@@ -3,16 +3,17 @@ import arcade
 import os
 
 SPRITE_SCALING_PLAYER = 0.7
-SPRITE_SCALING_COIN = 0.2
+SPRITE_SCALING_COIN = 0.4
 SPRITE_SCALING_COIN2 = 0.05
-SPRITE_SCALING_COINkill = 0.2
-SPRITE_SCALING_COINLIVE = 0.2
+SPRITE_SCALING_COINkill = 0.3
+SPRITE_SCALING_COINLIVE = 0.3
+HEARTSIZE = 0.4
 
 COIN_COUNT = 100
 COINKILL_COUNT = 25
 COINlive = 16
 
-addmoredot = 2
+addmoredot = 1
 addmorelive = 1
 
 
@@ -36,6 +37,9 @@ class MyGame(arcade.Window):
         self.coin_list = None
         self.coinkill_list = None
         self.coinlive_list = None
+        self.heart = None
+        self.heart2 = None
+        self.heart3 = None
 
         # Set up the player info
         self.player_sprite = None
@@ -56,6 +60,22 @@ class MyGame(arcade.Window):
         self.coinkill_list = arcade.SpriteList()
         self.coinlive_list = arcade.SpriteList()
 
+        #picture of heart1
+        self.heart = arcade.SpriteList()
+        self.heart = arcade.Sprite("heartlive.png", HEARTSIZE)
+        self.heart.center_x = 120
+        self.heart.center_y = 520
+
+        self.heart2 = arcade.SpriteList()
+        self.heart2 = arcade.Sprite("heartlive.png", HEARTSIZE)
+        self.heart2.center_x = 170
+        self.heart2.center_y = 520
+
+        self.heart3 = arcade.SpriteList()
+        self.heart3 = arcade.Sprite("heartlive.png", HEARTSIZE)
+        self.heart3.center_x = 220
+        self.heart3.center_y = 520
+
         # Score
         self.score = 0
         self.live = 3
@@ -66,7 +86,7 @@ class MyGame(arcade.Window):
         self.player_sprite.center_x = 50
         self.player_sprite.center_y = 50
         self.player_list.append(self.player_sprite)
-        self.background = arcade.load_texture("6.jpg")
+        self.background = arcade.load_texture("wallpaperdot.png")
 
         # Create the coins
         for i in range(COIN_COUNT):
@@ -79,7 +99,7 @@ class MyGame(arcade.Window):
 
             # Position the coin
             coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
+            coin.center_y = random.randrange(SCREEN_HEIGHT-100)
             # coinkill.center_x = random.randrange(SCREEN_WIDTH)
             # coinkill.center_y = random.randrange(SCREEN_HEIGHT)
             # coinlive.center_x = random.randrange(SCREEN_WIDTH)
@@ -98,7 +118,7 @@ class MyGame(arcade.Window):
 
             # Position the coin
             coinkill.center_x = random.randrange(SCREEN_WIDTH)
-            coinkill.center_y = random.randrange(SCREEN_HEIGHT)
+            coinkill.center_y = random.randrange(SCREEN_HEIGHT-100)
 
 
             # Add the coin to the lists
@@ -112,7 +132,7 @@ class MyGame(arcade.Window):
 
             # Position the coin
             coinlive.center_x = random.randrange(SCREEN_WIDTH)
-            coinlive.center_y = random.randrange(SCREEN_HEIGHT)
+            coinlive.center_y = random.randrange(SCREEN_HEIGHT-100)
 
             # Add the coin to the lists
 
@@ -123,10 +143,18 @@ class MyGame(arcade.Window):
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
 
+        self.heart.draw()
+        self.heart2.draw()
+        self.heart3.draw()
         self.coin_list.draw()
         self.coinkill_list.draw()
         self.coinlive_list.draw()
         self.player_list.draw()
+        #title
+        outputs = f"EAT DOT"
+        arcade.draw_text(outputs, 10, 550, arcade.color.WHITE, 50)
+        livee = f"LIFE : "
+        arcade.draw_text(livee, 10, 510, arcade.color.WHITE, 30)
 
         # Put the text on the screen.
         output = f"Score: {self.score}"
@@ -164,7 +192,7 @@ class MyGame(arcade.Window):
 
                 # Position the coin
                 coin2.center_x = random.randrange(SCREEN_WIDTH)
-                coin2.center_y = random.randrange(SCREEN_HEIGHT)
+                coin2.center_y = random.randrange(SCREEN_HEIGHT-100)
 
                 # Add the coin to the lists
                 self.coin_list.append(coin2)
@@ -178,7 +206,7 @@ class MyGame(arcade.Window):
 
                 # Position the coin
                 coinkill.center_x = random.randrange(SCREEN_WIDTH)
-                coinkill.center_y = random.randrange(SCREEN_HEIGHT)
+                coinkill.center_y = random.randrange(SCREEN_HEIGHT-100)
                 # Add the coin to the lists
                 self.coinkill_list.append(coinkill)
 
@@ -190,7 +218,7 @@ class MyGame(arcade.Window):
 
                 # Position the coin
                 coinlive.center_x = random.randrange(SCREEN_WIDTH)
-                coinlive.center_y = random.randrange(SCREEN_HEIGHT)
+                coinlive.center_y = random.randrange(SCREEN_HEIGHT-100)
 
                 # Add the coin to the lists
 
