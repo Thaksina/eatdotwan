@@ -9,12 +9,16 @@ SPRITE_SCALING_COINkill = 0.2
 SPRITE_SCALING_COINLIVE = 0.2
 
 COIN_COUNT = 100
-COINKILL_COUNT = 20
-COINlive = 5
+COINKILL_COUNT = 25
+COINlive = 16
 
-SCREEN_WIDTH = 800
+addmoredot = 2
+addmorelive = 1
+
+
+SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Sprite Collect Coins Example"
+SCREEN_TITLE = "Eat dot !!"
 
 
 class MyGame(arcade.Window):
@@ -70,20 +74,48 @@ class MyGame(arcade.Window):
             # Create the coin instance
             # Coin image
             coin = arcade.Sprite("dotdot.png", SPRITE_SCALING_COIN)
-            coinkill = arcade.Sprite("dot.png",SPRITE_SCALING_COINkill)
-            coinlive = arcade.Sprite("images.png",SPRITE_SCALING_COINLIVE)
+            # coinkill = arcade.Sprite("dot.png",SPRITE_SCALING_COINkill)
+            # coinlive = arcade.Sprite("images.png",SPRITE_SCALING_COINLIVE)
 
             # Position the coin
             coin.center_x = random.randrange(SCREEN_WIDTH)
             coin.center_y = random.randrange(SCREEN_HEIGHT)
+            # coinkill.center_x = random.randrange(SCREEN_WIDTH)
+            # coinkill.center_y = random.randrange(SCREEN_HEIGHT)
+            # coinlive.center_x = random.randrange(SCREEN_WIDTH)
+            # coinlive.center_y = random.randrange(SCREEN_HEIGHT)
+
+            # Add the coin to the lists
+            self.coin_list.append(coin)
+            # self.coinkill_list.append(coinkill)
+            # self.coinlive_list.append(coinlive)
+
+        for i in range(COINKILL_COUNT):
+
+            # Create the coin instance
+            # Coin image
+            coinkill = arcade.Sprite("dot.png",SPRITE_SCALING_COINkill)
+
+            # Position the coin
             coinkill.center_x = random.randrange(SCREEN_WIDTH)
             coinkill.center_y = random.randrange(SCREEN_HEIGHT)
+
+
+            # Add the coin to the lists
+            self.coinkill_list.append(coinkill)
+
+        for i in range(COINlive):
+
+            # Create the coin instance
+            # Coin image
+            coinlive = arcade.Sprite("images.png",SPRITE_SCALING_COINLIVE)
+
+            # Position the coin
             coinlive.center_x = random.randrange(SCREEN_WIDTH)
             coinlive.center_y = random.randrange(SCREEN_HEIGHT)
 
             # Add the coin to the lists
-            self.coin_list.append(coin)
-            self.coinkill_list.append(coinkill)
+
             self.coinlive_list.append(coinlive)
 
     def on_draw(self):
@@ -115,10 +147,54 @@ class MyGame(arcade.Window):
         self.coinkill_list.update()
         self.coinlive_list.update()
 
+
+
+
         # Generate a list of all sprites that collided with the player.
         coins_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
         coinskill_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coinkill_list)
         coinlive_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coinlive_list)
+
+
+        if coins_hit_list :
+            for i in range(addmoredot):
+                # Create the coin instance
+                # Coin image
+                coin2 = arcade.Sprite("dotdot.png", SPRITE_SCALING_COIN)
+
+                # Position the coin
+                coin2.center_x = random.randrange(SCREEN_WIDTH)
+                coin2.center_y = random.randrange(SCREEN_HEIGHT)
+
+                # Add the coin to the lists
+                self.coin_list.append(coin2)
+
+
+        if coinskill_hit_list:
+            for i in range(addmoredot):
+                # Create the coin instance
+                # Coin image
+                coinkill = arcade.Sprite("dot.png", SPRITE_SCALING_COINkill)
+
+                # Position the coin
+                coinkill.center_x = random.randrange(SCREEN_WIDTH)
+                coinkill.center_y = random.randrange(SCREEN_HEIGHT)
+                # Add the coin to the lists
+                self.coinkill_list.append(coinkill)
+
+        if coinlive_hit_list:
+            for i in range(addmorelive):
+                # Create the coin instance
+                # Coin image
+                coinlive = arcade.Sprite("images.png", SPRITE_SCALING_COINLIVE)
+
+                # Position the coin
+                coinlive.center_x = random.randrange(SCREEN_WIDTH)
+                coinlive.center_y = random.randrange(SCREEN_HEIGHT)
+
+                # Add the coin to the lists
+
+                self.coinlive_list.append(coinlive)
 
         for coin in coins_hit_list:
             coin.kill()
@@ -131,6 +207,9 @@ class MyGame(arcade.Window):
         for coinlive in coinlive_hit_list:
             coinlive.kill()
             self.live -=1
+
+
+
 
 
 def main():
