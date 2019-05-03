@@ -11,7 +11,7 @@ HEARTSIZE = 0.4
 
 COIN_COUNT = 100
 COINKILL_COUNT = 25
-COINlive = 16
+COINlive = 10
 
 addmoredot = 1
 addmorelive = 1
@@ -40,6 +40,7 @@ class MyGame(arcade.Window):
         self.heart = None
         self.heart2 = None
         self.heart3 = None
+        self.broke = None
 
         # Set up the player info
         self.player_sprite = None
@@ -60,6 +61,12 @@ class MyGame(arcade.Window):
         self.coinkill_list = arcade.SpriteList()
         self.coinlive_list = arcade.SpriteList()
 
+        self.broke = arcade.SpriteList()
+        self.broke = arcade.Sprite("brokeheart.png", HEARTSIZE)
+        self.broke.center_x = 220
+        self.broke.center_y = 520
+
+
         #picture of heart1
         self.heart = arcade.SpriteList()
         self.heart = arcade.Sprite("heartlive.png", HEARTSIZE)
@@ -75,6 +82,7 @@ class MyGame(arcade.Window):
         self.heart3 = arcade.Sprite("heartlive.png", HEARTSIZE)
         self.heart3.center_x = 220
         self.heart3.center_y = 520
+
 
         # Score
         self.score = 0
@@ -138,10 +146,14 @@ class MyGame(arcade.Window):
 
             self.coinlive_list.append(coinlive)
 
+
+
+
     def on_draw(self):
         arcade.start_render()
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
+
 
         self.heart.draw()
         self.heart2.draw()
@@ -150,17 +162,34 @@ class MyGame(arcade.Window):
         self.coinkill_list.draw()
         self.coinlive_list.draw()
         self.player_list.draw()
+
         #title
         outputs = f"EAT DOT"
         arcade.draw_text(outputs, 10, 550, arcade.color.WHITE, 50)
         livee = f"LIFE : "
         arcade.draw_text(livee, 10, 510, arcade.color.WHITE, 30)
 
+        livee = f"SCORE : "
+        arcade.draw_text(livee, 280, 510, arcade.color.WHITE, 30)
+        output = f"{self.score}"
+        arcade.draw_text(output, 420, 510, arcade.color.WHITE, 30)
+
         # Put the text on the screen.
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.BABY_PINK, 14)
         output2 = f"Life: {self.live}"
         arcade.draw_text(output2, 10, 35, arcade.color.BABY_PINK, 14)
+        if self.live <= 2:
+            output2f = f"X"
+            arcade.draw_text(output2f, 205, 500, arcade.color.WHITE, 50)
+            if self.live <=1:
+                x = f"X"
+                arcade.draw_text(x, 150, 500, arcade.color.WHITE, 50)
+                if self.live ==0:
+                    y = f"X"
+                    arcade.draw_text(output2f, 120, 520, arcade.color.WHITE, 30)
+
+
 
     def on_mouse_motion(self, x, y, dx, dy):
 
@@ -174,7 +203,6 @@ class MyGame(arcade.Window):
         self.coin_list.update()
         self.coinkill_list.update()
         self.coinlive_list.update()
-
 
 
 
@@ -235,6 +263,28 @@ class MyGame(arcade.Window):
         for coinlive in coinlive_hit_list:
             coinlive.kill()
             self.live -=1
+
+
+
+        # if self.live == 2:
+        #     output2f = f"Life"
+        #     arcade.draw_text(output2f, 300, 300, arcade.color.WHITE, 80)
+        #
+        #     self.broke = arcade.SpriteList()
+        #     self.broke = arcade.Sprite("brokeheart.png", HEARTSIZE)
+        #     self.broke.center_x = 220
+        #     self.broke.center_y = 520
+        #     self.broke.draw()
+        #     self.heart3.kill()
+
+
+
+
+        if self.live == 0:
+            getout = arcade.pause(5)
+            getout()
+            self.player_sprite.center_x = None
+            self.player_sprite.center_y = None
 
 
 
