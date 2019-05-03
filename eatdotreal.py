@@ -122,7 +122,7 @@ class MyGame(arcade.Window):
 
             # Create the coin instance
             # Coin image
-            coinkill = arcade.Sprite("dot.png",SPRITE_SCALING_COINkill)
+            coinkill = arcade.Sprite("min.png",SPRITE_SCALING_COINkill)
 
             # Position the coin
             coinkill.center_x = random.randrange(SCREEN_WIDTH)
@@ -136,7 +136,7 @@ class MyGame(arcade.Window):
 
             # Create the coin instance
             # Coin image
-            coinlive = arcade.Sprite("images.png",SPRITE_SCALING_COINLIVE)
+            coinlive = arcade.Sprite("4948-200.png",SPRITE_SCALING_COINLIVE)
 
             # Position the coin
             coinlive.center_x = random.randrange(SCREEN_WIDTH)
@@ -230,7 +230,7 @@ class MyGame(arcade.Window):
             for i in range(addmoredot):
                 # Create the coin instance
                 # Coin image
-                coinkill = arcade.Sprite("dot.png", SPRITE_SCALING_COINkill)
+                coinkill = arcade.Sprite("min.png", SPRITE_SCALING_COINkill)
 
                 # Position the coin
                 coinkill.center_x = random.randrange(SCREEN_WIDTH)
@@ -242,7 +242,7 @@ class MyGame(arcade.Window):
             for i in range(addmorelive):
                 # Create the coin instance
                 # Coin image
-                coinlive = arcade.Sprite("images.png", SPRITE_SCALING_COINLIVE)
+                coinlive = arcade.Sprite("4948-200.png", SPRITE_SCALING_COINLIVE)
 
                 # Position the coin
                 coinlive.center_x = random.randrange(SCREEN_WIDTH)
