@@ -1,3 +1,4 @@
+from models import World
 import random
 import arcade
 import os
@@ -41,6 +42,7 @@ class MyGame(arcade.Window):
         self.heart2 = None
         self.heart3 = None
         self.broke = None
+        self.endgame = None
 
         # Set up the player info
         self.player_sprite = None
@@ -56,6 +58,7 @@ class MyGame(arcade.Window):
     def setup(self):
 
         # Sprite lists
+        self.endgame = arcade.SpriteList()
         self.player_list = arcade.SpriteList()
         self.coin_list = arcade.SpriteList()
         self.coinkill_list = arcade.SpriteList()
@@ -107,7 +110,7 @@ class MyGame(arcade.Window):
 
             # Position the coin
             coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT-100)
+            coin.center_y = random.randrange(SCREEN_HEIGHT-120)
             # coinkill.center_x = random.randrange(SCREEN_WIDTH)
             # coinkill.center_y = random.randrange(SCREEN_HEIGHT)
             # coinlive.center_x = random.randrange(SCREEN_WIDTH)
@@ -126,7 +129,7 @@ class MyGame(arcade.Window):
 
             # Position the coin
             coinkill.center_x = random.randrange(SCREEN_WIDTH)
-            coinkill.center_y = random.randrange(SCREEN_HEIGHT-100)
+            coinkill.center_y = random.randrange(SCREEN_HEIGHT-120)
 
 
             # Add the coin to the lists
@@ -140,7 +143,7 @@ class MyGame(arcade.Window):
 
             # Position the coin
             coinlive.center_x = random.randrange(SCREEN_WIDTH)
-            coinlive.center_y = random.randrange(SCREEN_HEIGHT-100)
+            coinlive.center_y = random.randrange(SCREEN_HEIGHT-120)
 
             # Add the coin to the lists
 
@@ -187,8 +190,26 @@ class MyGame(arcade.Window):
                 arcade.draw_text(x, 150, 500, arcade.color.WHITE, 50)
                 if self.live ==0:
                     y = f"X"
-                    arcade.draw_text(output2f, 120, 520, arcade.color.WHITE, 30)
+                    arcade.draw_text(output2f, 100, 500, arcade.color.WHITE, 50)
 
+        if self.live == 0:
+            self.endgame = arcade.Sprite("endgame.png",2)
+            self.endgame.center_x = 300
+            self.endgame.center_y = 300
+            self.endgame.draw()
+
+
+
+
+
+
+        # if self.live == 0:
+        #     self.endgame = arcade.Sprite("eat.png",5)
+        #     self.endgame.center_x = 300
+        #     self.endgame.center_y = 300
+        #     self.endgame.draw()
+        #     output2f = f"gggggggX"
+        #     arcade.draw_text(output2f, 300, 300, arcade.color.WHITE, 80)
 
 
     def on_mouse_motion(self, x, y, dx, dy):
@@ -220,7 +241,7 @@ class MyGame(arcade.Window):
 
                 # Position the coin
                 coin2.center_x = random.randrange(SCREEN_WIDTH)
-                coin2.center_y = random.randrange(SCREEN_HEIGHT-100)
+                coin2.center_y = random.randrange(SCREEN_HEIGHT-120)
 
                 # Add the coin to the lists
                 self.coin_list.append(coin2)
@@ -234,7 +255,7 @@ class MyGame(arcade.Window):
 
                 # Position the coin
                 coinkill.center_x = random.randrange(SCREEN_WIDTH)
-                coinkill.center_y = random.randrange(SCREEN_HEIGHT-100)
+                coinkill.center_y = random.randrange(SCREEN_HEIGHT-120)
                 # Add the coin to the lists
                 self.coinkill_list.append(coinkill)
 
@@ -246,7 +267,7 @@ class MyGame(arcade.Window):
 
                 # Position the coin
                 coinlive.center_x = random.randrange(SCREEN_WIDTH)
-                coinlive.center_y = random.randrange(SCREEN_HEIGHT-100)
+                coinlive.center_y = random.randrange(SCREEN_HEIGHT-120)
 
                 # Add the coin to the lists
 
@@ -254,6 +275,7 @@ class MyGame(arcade.Window):
 
         for coin in coins_hit_list:
             coin.kill()
+            arcade.load_sound
             self.score += 1
 
         for coinkill in coinskill_hit_list:
@@ -264,6 +286,9 @@ class MyGame(arcade.Window):
             coinlive.kill()
             self.live -=1
 
+        if self.live == -1:
+            getout = arcade.pause(5)
+            getout()
 
 
         # if self.live == 2:
@@ -280,11 +305,11 @@ class MyGame(arcade.Window):
 
 
 
-        if self.live == 0:
-            getout = arcade.pause(5)
-            getout()
-            self.player_sprite.center_x = None
-            self.player_sprite.center_y = None
+        # if self.live == 0:
+        #     getout = arcade.pause(5)
+        #     getout()
+        #     self.player_sprite.center_x = None
+        #     self.player_sprite.center_y = None
 
 
 
