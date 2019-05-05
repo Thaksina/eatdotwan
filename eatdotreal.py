@@ -2,6 +2,8 @@ from models import World
 import random
 import arcade
 import os
+# import winsound
+# winsound.PlaySound("w",winsound.SND_ALIAS)
 
 SPRITE_SCALING_PLAYER = 0.7
 SPRITE_SCALING_COIN = 0.4
@@ -25,6 +27,8 @@ SCREEN_TITLE = "Eat dot !!"
 
 class MyGame(arcade.Window):
 
+    arcade.sound.play_sound("w.wav")
+
     def __init__(self):
 
 
@@ -43,7 +47,8 @@ class MyGame(arcade.Window):
         self.heart3 = None
         self.broke = None
         self.endgame = None
-
+        # self.song = arcade.sound.load_sound("w.wav")
+        # arcade.sound.play_sound("w.wav")
         # Set up the player info
         self.player_sprite = None
         self.score = 0
@@ -151,7 +156,6 @@ class MyGame(arcade.Window):
 
 
 
-
     def on_draw(self):
         arcade.start_render()
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
@@ -198,11 +202,8 @@ class MyGame(arcade.Window):
             self.endgame.center_y = 300
             self.endgame.draw()
 
-
-
-
-
-
+        # if self.live == 2:
+        #     arcade.sound.play_sound("w.wav")
         # if self.live == 0:
         #     self.endgame = arcade.Sprite("eat.png",5)
         #     self.endgame.center_x = 300
@@ -287,7 +288,7 @@ class MyGame(arcade.Window):
             self.live -=1
 
         if self.live == -1:
-            getout = arcade.pause(5)
+            getout = arcade.pause(2)
             getout()
 
 
@@ -310,7 +311,6 @@ class MyGame(arcade.Window):
         #     getout()
         #     self.player_sprite.center_x = None
         #     self.player_sprite.center_y = None
-
 
 
 
