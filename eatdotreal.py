@@ -53,6 +53,7 @@ class MyGame(arcade.Window):
         self.player_sprite = None
         self.score = 0
         self.live = 3
+        self.isDraw = False
 
         # Don't show the mouse cursor
         self.set_mouse_visible(False)
@@ -99,8 +100,8 @@ class MyGame(arcade.Window):
         # Set up the player
         # Character
         self.player_sprite = arcade.Sprite("eat2.png", SPRITE_SCALING_PLAYER)
-        self.player_sprite.center_x = 50
-        self.player_sprite.center_y = 50
+        self.player_sprite.center_x = 530
+        self.player_sprite.center_y = 540
         self.player_list.append(self.player_sprite)
         self.background = arcade.load_texture("wallpaperdot.png")
 
@@ -144,7 +145,7 @@ class MyGame(arcade.Window):
 
             # Create the coin instance
             # Coin image
-            coinlive = arcade.Sprite("4948-200.png",SPRITE_SCALING_COINLIVE)
+            coinlive = arcade.Sprite("bomb.png",0.15)
 
             # Position the coin
             coinlive.center_x = random.randrange(SCREEN_WIDTH)
@@ -192,15 +193,21 @@ class MyGame(arcade.Window):
             if self.live <=1:
                 x = f"X"
                 arcade.draw_text(x, 150, 500, arcade.color.WHITE, 50)
-                if self.live ==0:
+                if self.live <=0:
                     y = f"X"
                     arcade.draw_text(output2f, 100, 500, arcade.color.WHITE, 50)
 
-        if self.live == 0:
+        if self.live <= 0:
             self.endgame = arcade.Sprite("endgame.png",2)
             self.endgame.center_x = 300
             self.endgame.center_y = 300
-            self.endgame.draw()
+
+            if self.isDraw:
+                arcade.time.sleep(5)
+                exit(0)
+            else:
+                self.endgame.draw()
+                self.isDraw = True
 
         # if self.live == 2:
         #     arcade.sound.play_sound("w.wav")
@@ -264,7 +271,7 @@ class MyGame(arcade.Window):
             for i in range(addmorelive):
                 # Create the coin instance
                 # Coin image
-                coinlive = arcade.Sprite("4948-200.png", SPRITE_SCALING_COINLIVE)
+                coinlive = arcade.Sprite("bomb.png", 0.15)
 
                 # Position the coin
                 coinlive.center_x = random.randrange(SCREEN_WIDTH)
@@ -287,9 +294,7 @@ class MyGame(arcade.Window):
             coinlive.kill()
             self.live -=1
 
-        if self.live == -1:
-            getout = arcade.pause(2)
-            getout()
+
 
 
         # if self.live == 2:
